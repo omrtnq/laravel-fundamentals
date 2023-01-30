@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Student;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::share('welcomeTitle', 'Welcome to Student System');
+        View::composer('student.index', function ($view) {
+            $view->with('students', Student::all());
+        });
     }
 }
