@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//LOGIN
+Route::get('login', [UserController::class, 'login']);
+Route::get('register', [UserController::class, 'register']);
+
+
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 
