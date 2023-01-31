@@ -31,7 +31,7 @@ Route::controller(StudentController::class)->group(function () {
     Route::get('/', 'index')->middleware('auth');
     Route::get('/add/student', 'create')->name('add student'); //Addstudent
     Route::post('/add/student', 'store');
-    Route::get('/student/{id}', 'show');
+    Route::get('/student/{id}', 'show'); //! NOT WORKING
     Route::put('/student/{student}', 'update');
     Route::delete('/student/{student}', 'destroy');
 });
