@@ -16,17 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(UserController::class)->group(function () {
+    Route::get('register', 'register');
+    Route::get('login', 'login')->name('login')->middleware('guest');
+    Route::post('login/process', 'process');
+    Route::post('logout', 'logout');
+    Route::post('store', 'store');
 });
 
-//LOGIN
-Route::get('login', [UserController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
 
+// Route::get('/', [StudentController::class, 'index'])->middleware('auth');
 
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/user/{id}', [UserController::class, 'show']);
-
-Route::get('/students', [StudentController::class, 'index']);
-Route::get('/students/{id}', [StudentController::class, 'show']);
+Route::controller(StudentController::class)->group(function () {
+    Route::get('/', 'index')->middleware('auth');
+    Route::get('/add/student', 'create')->name('add student'); //Addstudent
+    Route::post('/add/student', 'store');
+    Route::get('/student/{id}', 'show');
+    Route::put('/student/{student}', 'update');
+    Route::delete('/student/{student}', 'destroy');
+});
