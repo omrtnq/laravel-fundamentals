@@ -14,7 +14,12 @@ class StudentController extends Controller
 
     public function index()
     {
-        $data = array('data' => DB::table('students')->orderBy('created_at', 'desc')->simplePaginate(10));
+        $data = array('data' => DB::table('students')->orderBy('created_at', 'desc')->simplePaginate(12));
+
+        if (request('student')) {
+            $input = request()->input('student');
+            $data = array('data' => DB::table('students')->where('first_name', $input)->orWhere('last_name', $input)->orderBy('created_at', 'desc')->simplePaginate(12));
+        }
         return view('students.index', $data);
     }
 
@@ -26,7 +31,7 @@ class StudentController extends Controller
     }
     public function create()
     {
-        return view('students.create')->with('title', 'Add New');
+        return view('students.index')->with('title', 'Add New');
     }
 
     public function store(Request $request)

@@ -6,6 +6,9 @@ use App\Models\Student;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Pagination\Paginator;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,5 +32,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer('student.index', function ($view) {
             $view->with('students', Student::all());
         });
+
+        // Paginator::useBootstrap();
+        Paginator::useTailwind();
     }
 }
